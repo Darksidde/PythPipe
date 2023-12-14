@@ -2,8 +2,7 @@ pipeline {
     agent any
     stages {
         stage('Setup') {
-            steps {
-                // Sanal ortam oluşturma veya Python sürümünü belirleme (varsayılan olarak Jenkins sunucusunda yüklü ise)
+            steps         {
                 script {
                     sh 'python --version' // Python sürümünü kontrol etme
                 }
