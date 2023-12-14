@@ -2,12 +2,14 @@ pipeline {
     agent any
     stages {
         stage('Setup') {
-            steps         {
-                script {
-                    sh 'python --version' // Python sürümünü kontrol etme
-                }
-            }
+    steps {
+        script {
+            sh 'python --version' // Python sürümünü kontrol etme
+            sh 'pip install -r requirements.txt' // requirements.txt'deki bağımlılıkların yüklenmesi
         }
+    }
+}
+    
         stage('Test') {
             steps {
                 // Pytest'in yüklü olup olmadığını kontrol etme ve test senaryolarını çalıştırma
