@@ -1,18 +1,24 @@
 pipeline {
     agent any
     stages {
-        stage("Setup") {
+        stage('Setup') {
             steps {
-                // Eğer gerekli ise: Virtual environment oluşturulması veya Python sürümü belirleme
-                sh 'python --version' // Python sürümünü kontrol etme
+                // Sanal ortam oluşturma veya Python sürümünü belirleme (varsayılan olarak Jenkins sunucusunda yüklü ise)
+                script {
+                    sh 'python --version' // Python sürümünü kontrol etme
+                }
             }
         }
-        stage("Test") {
+        stage('Test') {
             steps {
-                sh 'python -m pytest calculator.py' // Test senaryolarının çalıştırılması
+                // Pytest'in yüklü olup olmadığını kontrol etme ve test senaryolarını çalıştırma
+                script {
+                    sh 'pip show pytest || pip install pytest' // Pytest'in yüklü olup olmadığını kontrol etme
+                    sh 'python -m pytest calculator.py' // Test senaryolarını çalıştırma
+                }
             }
         }
-        stage("Deploy") {
+        stage('Deploy') {
             steps {
                 // Uygulamanın dağıtımı için gereken adımlar (isteğe bağlı)
             }
