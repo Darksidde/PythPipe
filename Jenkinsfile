@@ -1,12 +1,8 @@
 pipeline {
-    agent {
-        docker {
-            image 'alpine' // veya uygun Docker imajı
-        }
-    }
+    agent any
     stages {
         stage('Setup') {
-            steps {
+            steps         {
                 script {
                     sh 'python --version' // Python sürümünü kontrol etme
                 }
@@ -14,6 +10,7 @@ pipeline {
         }
         stage('Test') {
             steps {
+                // Pytest'in yüklü olup olmadığını kontrol etme ve test senaryolarını çalıştırma
                 script {
                     sh 'pip show pytest || pip install pytest' // Pytest'in yüklü olup olmadığını kontrol etme
                     sh 'python -m pytest calculator.py' // Test senaryolarını çalıştırma
